@@ -1,12 +1,12 @@
 # **Описание**
 
-В данном домашнем задании необходимо настроить NFS v3 сервер и проверить его работоспособность, а также примонтировать на клиенте примонтировать директория с NFS сервера.
+В данном домашнем задании необходимо настроить NFS v3 сервер и проверить его работоспособность, а также примонтировать на клиенте директорию с NFS сервера.
 
 ---
 
 # **Подготовка окружения** 
 
-Для тестового стенда нам потребуется Vagrant файл из методички, который создаст две машины - NFS сервере и клиент
+Для тестового стенда нам потребуется Vagrant файл из методички, который создаст две машины - NFS сервер и клиент.
 ```
 # -*- mode: ruby -*-
 # vim: set ft=ruby :
@@ -34,7 +34,7 @@ end
 ```
 А также два скрипта, которые сконфигурят эти машины.
 
-- **nfsc_script.sh**
+- **nfss_script.sh**
 ```
 #!/bin/bash
 
@@ -98,7 +98,7 @@ PS D:\TEMP\OTUS\my-hw5> vagrant ssh nfss
 
 [vagrant@nfss ~]$ touch /srv/share/upload/check_file
 ```
-2. Заходим на клиент и проверяем наличие данного файла в `/mnt/upload`, а также создаём обратный тестовый файл `client_file`
+2. Заходим на клиент и проверяем наличие данного файла в `/mnt/upload`, а также создаём обратный тестовый файл `client_file`.
 ```
 PS D:\TEMP\OTUS\my-hw5> vagrant ssh nfsc
 
@@ -116,7 +116,7 @@ drwxr-xr-x. 3 nfsnobody nfsnobody 20 Feb 17 22:36 ..
 Connection to 127.0.0.1 closed by remote host.
 Connection to 127.0.0.1 closed.
 ```
-4. После перезагрузки снова заходим, смотрим файлы в директории `/mnt/upload`, убеждаемся что файлы на месте
+4. После перезагрузки снова заходим, смотрим файлы в директории `/mnt/upload`, убеждаемся что файлы на месте.
 ```
 PS D:\TEMP\OTUS\my-hw5> vagrant ssh nfsc
 
@@ -127,13 +127,13 @@ drwxr-xr-x. 3 nfsnobody nfsnobody 20 Feb 17 22:36 ..
 -rw-rw-r--. 1 vagrant   vagrant    0 Feb 17 23:00 check_file
 -rw-rw-r--. 1 vagrant   vagrant    0 Feb 17 23:09 client_file
 ```
-5. Перезагружаем сервер
+5. Перезагружаем сервер.
 ```
 [vagrant@nfss ~]$ sudo shutdown -r now
 Connection to 127.0.0.1 closed by remote host.
 Connection to 127.0.0.1 closed.
 ```
-6. После перезагрузки подключаемся к серверу и проверяем наличие файлов в директории `/srv/share/upload/`
+6. После перезагрузки подключаемся к серверу и проверяем наличие файлов в директории `/srv/share/upload/`.
 ```
 PS D:\TEMP\OTUS\my-hw5> vagrant ssh nfss
 Last login: Thu Feb 17 22:52:06 2022 from 10.0.2.2
@@ -144,7 +144,7 @@ drwxr-xr-x. 3 nfsnobody nfsnobody 20 Feb 17 22:36 ..
 -rw-rw-r--. 1 vagrant   vagrant    0 Feb 17 23:00 check_file
 -rw-rw-r--. 1 vagrant   vagrant    0 Feb 17 23:09 client_file
 ```
-7. Далее делаем проверки NFS, Firewall, Exports, RPC
+7. Далее делаем проверки NFS, Firewall, Exports, RPC.
 ```
 [vagrant@nfss ~]$ systemctl status nfs
 ● nfs-server.service - NFS server and services
@@ -176,13 +176,6 @@ All mount points on 192.168.56.150:
 ```
 8. Аналогично проверяем клиент. 
 ```
-[vagrant@nfsc ~]$ ls -la /mnt/upload/
-total 0
-drwxrwxrwx. 2 nfsnobody nfsnobody 43 Feb 17 23:09 .
-drwxr-xr-x. 3 nfsnobody nfsnobody 20 Feb 17 22:36 ..
--rw-rw-r--. 1 vagrant   vagrant    0 Feb 17 23:00 check_file
--rw-rw-r--. 1 vagrant   vagrant    0 Feb 17 23:09 client_file
-
 [vagrant@nfsc ~]$ showmount -a 192.168.56.150
 All mount points on 192.168.56.150:
 192.168.56.151:/srv/share
