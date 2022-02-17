@@ -201,3 +201,8 @@ drwxr-xr-x. 3 nfsnobody nfsnobody 20 Feb 17 22:36 ..
 -rw-rw-r--. 1 vagrant   vagrant    0 Feb 17 23:09 client_file
 -rw-rw-r--. 1 vagrant   vagrant    0 Feb 17 23:23 final_check
 ```
+
+---
+
+# **Заключение**
+В данном ДЗ мы расмотрели базовую настройку NFS v3 и команды, с помощью которых можно проверить его рабтоспособность. 
